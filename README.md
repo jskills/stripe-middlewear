@@ -7,6 +7,8 @@ To test locally:
 
 - You will need to set the values of both "stripe_publishable_key" and "stripe_api_key" as environment variables.  You get both of these from the Stripe console once you have set up an account with them.
 
+- add your own logs/ directory for local logging.
+
 - Run './gradlew bootRun' to start the REST service
 
 - If you hit "http://localhost:8080" you'll bring up the index.html page that allows for (very) basic testing of credit card charging.
