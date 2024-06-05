@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stripe Payment Test</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .container {
+            width: 400px;
+            margin: 50px auto;
+        }
+        #card-element, #amount-input {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #6772e5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #5469d4;
+        }
+        .error, .success {
+            color: red;
+            margin-top: 10px;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Charge Payment</h2>
+    Create a token and charge a card for the specified amount.
+    <form id="payment-form">
+        <input type="text" id="amount-input" name="amount" placeholder="Enter amount" required>
+        <div id="card-element">
+            <!-- Stripe Elements will place the card input fields here -->
+        </div>
+        <div id="card-errors" class="error"></div>
+        <button type="submit">Submit Payment</button>
+    </form>
+    <div id="payment-response" class="success"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let stripe, card;  // Declare these variables outside to make them accessible in the form submit handler
+
+    fetch('/config/stripe-key')
+        .then(response => response.text())
+        .then(key => {
+            stripe = Stripe(key);  // Initialize Stripe with the key
+            const elements = stripe.elements();
+            const style = {
+                base: {
+                    fontSize: '16px',
+                    color: '#32325d',
+                }
+            };
+            card = elements.create('card', {style: style});
+            card.mount('#card-element');
+
+            card.on('change', function(event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching publishable key:', error));
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var amount = document.getElementById('amount-input').value;
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                fetch('http://localhost:8080/charge', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        'token': result.token.id,
+                        'amount': amount
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('payment-response').textContent = 'Payment successful! Charge ID: ' + data.id;
+                })
+                .catch(error => {
+                    document.getElementById('payment-response').textContent = 'Error: ' + error.message;
+                });
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

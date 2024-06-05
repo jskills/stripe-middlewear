@@ -1,0 +1,11 @@
+2024-06-05T10:21:02.573-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2024-06-05T10:21:02.580-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@71c5c676, started on Tue Jun 04 14:48:26 EDT 2024
+2024-06-05T10:21:02.584-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2024-06-05T10:21:02.584-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'applicationTaskExecutor' completed its stop procedure
+2024-06-05T10:21:02.584-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147482623
+2024-06-05T10:21:02.585-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'webServerGracefulShutdown' completed its stop procedure
+2024-06-05T10:21:02.585-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147481599
+2024-06-05T10:21:13.604-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'webServerStartStop' completed its stop procedure
+2024-06-05T10:21:13.604-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase -2147483647
+2024-06-05T10:21:13.604-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'springBootLoggingLifecycle' completed its stop procedure
+2024-06-05T10:21:13.605-04:00 DEBUG 50899 --- [stripe] [SpringApplicationShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
