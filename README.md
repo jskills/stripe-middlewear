@@ -15,7 +15,9 @@ To test locally:
 
 - The page loads the stripe_publishable_key from the environment variable and embeds it into front-end calls to the REST service.  The REST service itself will utilize the "stripe_api_key" to send calls to Stripe's APIs.
 
-- Any calls to test credit cards / make charges etc. are predicated by a call to get a secure token from Stripe first.  This is automatically done as part of the /charge endpoint.
+- The page uses the Stripe JavaScript library which is handy for a variety of things.  [https://js.stripe.com/v3/](https://js.stripe.com/v3/)
+
+- Any calls to test credit cards / make charges etc. are predicated by a call to get a secure token from Stripe first (using the above JavaScript library).  This is automatically done when the page loads prior to any calls being made to the REST service.
 
 - This was a extremely basic attempt to set up end to end testing.  Be sure to have your Stripe account set to "testing" mode as this will send through actual charges if you have not done that and are using production API keys.
 
